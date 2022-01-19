@@ -6,13 +6,10 @@ const userMessage = document.querySelector('form label textarea');
 
 function checkLocalStorageData() {
   let userData = JSON.parse(localStorage.getItem('feedback-form-state'));
-  try {
-    if (userData.email || userData.password) {
-      userEmail.value = userData.email;
-      userMessage.value = userData.password;
-    }
-  } catch (error) {
-    // logMyErrors(error);
+
+  if (userData !== null) {
+    userEmail.value = userData.email;
+    userMessage.value = userData.password;
   }
 }
 checkLocalStorageData();
@@ -22,21 +19,13 @@ let dataObject = {
   password: '',
 };
 
-userEmail.addEventListener(
+userForm.addEventListener(
   'input',
   throttle(event => {
-    dataObject.email = event.currentTarget.value;
+    dataObject.email = userEmail.value;
+    dataObject.password = userMessage.value;
     localStorage.setItem('feedback-form-state', JSON.stringify(dataObject));
-  }, 500),
-);
-
-userMessage.addEventListener(
-  'input',
-  throttle(event => {
-    dataObject.password = event.currentTarget.value;
-    // console.log(event.currentTarget.value);
-    localStorage.setItem('feedback-form-state', JSON.stringify(dataObject));
-  }, 500),
+  }, 0),
 );
 
 userForm.addEventListener('submit', event => {
