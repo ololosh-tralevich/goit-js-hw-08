@@ -25,7 +25,7 @@ userForm.addEventListener(
     dataObject.email = userEmail.value;
     dataObject.password = userMessage.value;
     localStorage.setItem('feedback-form-state', JSON.stringify(dataObject));
-  }, 0),
+  }, 500),
 );
 
 userForm.addEventListener('submit', event => {
